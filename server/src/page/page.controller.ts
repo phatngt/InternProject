@@ -37,7 +37,7 @@ export class PageController {
     }
 
 
-    @Get('list')
+    @Get('name_page')
     async getList(@Query('keyword') keyword : string): Promise<Response> {
       var response = new Response();
       try {
@@ -45,10 +45,10 @@ export class PageController {
        var query = this.pageRepository.createQueryBuilder("page")
        
        if(keyword){
-         query = query.where('page.name like :name',{name: '%' + keyword + '%'})
+         query = query.where('page.name = :name',{name: keyword})
        }
 
-       response.data = await query.orderBy("page.id","DESC").getMany();
+       response.data = await query.getMany();
 
       } catch (ex) {
         console.log("error: " + ex.message);

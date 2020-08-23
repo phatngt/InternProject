@@ -8,8 +8,8 @@ export class Page {
   @Column()
   name: string;
 
-  // @Column({ default: true })
-  // delete_flag: boolean;
+  @Column()
+  name_component: string;
 }
 
 
