@@ -1,10 +1,10 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[pageInsert]'
+  selector: '[pageInsert]',
 })
 export class AppDirective {
 
-  constructor(private viewContainerRef: ViewContainerRef) { }
+  constructor(public viewContainerRef: ViewContainerRef) { }
 
 }

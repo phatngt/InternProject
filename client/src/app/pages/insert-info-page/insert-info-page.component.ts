@@ -8,17 +8,23 @@ import {InfoComponent} from 'src/app/infocomponents/infocomponents'
 })
 export class InsertInfoPageComponent implements OnInit {
 
-  @ViewChild(AppDirective,{static:true}) pageInsert: AppDirective;
+  @ViewChild(AppDirective,{static:true}) 
+  pageInsert: AppDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
-    this.loadComponents();
+    this.loadComponents("input");
   }
 
-  loadComponents(){
+  loadComponents(name:string){
     const components = new InfoComponent();
-    console.log(components.getComponents("input"));
+    const component =  components.getComponents(name);
+    console.log(component);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    const viewContainerRef  = this.pageInsert.viewContainerRef; 
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    
   }
 
 }

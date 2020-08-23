@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
-
+  label = "Name"
+  value;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  onKey(event: any){
+    this.value =  event.target.value;
   }
 
 }
