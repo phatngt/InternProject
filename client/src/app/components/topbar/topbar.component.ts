@@ -10,11 +10,11 @@ export class TopbarComponent implements OnInit {
   constructor(private topbarService: TopbarService) { }
 
   ngOnInit(): void {
-    this.recieveData("123");
+    this.recieveData("insert");
   }
 
   recieveData(page:string){
-    return this.topbarService.getTopbarDataFromServer("123");
+    console.log(this.topbarService.getTopbarDataFromServer(page));
   }
 
 }

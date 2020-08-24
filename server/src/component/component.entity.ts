@@ -7,6 +7,9 @@ export class Component {
 
   @Column()
   type: string;
+  
+  @Column()
+  name_page:string;
 
   // @Column({ default: true })
   // delete_flag: boolean;

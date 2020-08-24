@@ -10,7 +10,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { AppDirective } from './directive/app.directive';
 import { InputComponent } from './components/input/input.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MaterialModule} from './material/material.module'
+import {MaterialModule} from './material/material.module';
+import { ButtonComponent } from './components/button/button.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import {MaterialModule} from './material/material.module'
     InsertInfoPageComponent,
     SearchPageComponent,
     AppDirective,
-    InputComponent
+    InputComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,

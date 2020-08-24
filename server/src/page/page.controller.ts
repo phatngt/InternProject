@@ -17,7 +17,7 @@ export class PageController {
   
 
     @Get()
-     async findOne(@Query('id') id : number): Promise<Response> {
+     async findOne(@Query('id') id : number): Promise<any> {
        var response = new Response();
        try {
         response.data = await this.pageRepository
@@ -34,10 +34,11 @@ export class PageController {
        }
      
       return response;
+      // return this.pageService.findAll();
     }
 
 
-    @Get('name_page')
+    @Get('name')
     async getList(@Query('keyword') keyword : string): Promise<Response> {
       var response = new Response();
       try {

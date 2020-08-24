@@ -12,12 +12,17 @@ export class TopbarService {
     private configService: ConfigService
     ) { }
 
-  async getTopbarDataFromServer(idpage: string):Promise<any>{
-    const pageUrl = (await (this.configService.getConfig())).pageUrl;
+  async getTopbarDataFromServer(name_page: string):Promise<any>{
+    const pageUrl = (await (this.configService.getConfig())).pageUrl + "/name?keyword="+name_page;
     console.log(pageUrl)
-    let data = await this.http.get(pageUrl + "?id=1").toPromise();
+    let data = await this.http.get(pageUrl).toPromise();
     console.log(data)
-    return data 
+    let listComponent = [];
+    let list = data["data"]
+    Object.keys(list).forEach(p=> listComponent.push(list[p].name_component))
+    console.log(listComponent);
+
+    return data; 
   }
 
 }
