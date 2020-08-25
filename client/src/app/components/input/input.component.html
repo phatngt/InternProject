@@ -1,5 +1,6 @@
 <mat-form-field appearance="fill">
-    <mat-label>{{label}}</mat-label>
-    <input matInput placeholder="{{label}}" (ngModelChange) = "onKey($event)">
+    <mat-label >{{label}}</mat-label>
+    <input matInput placeholder="{{label}}" (change) = "onKey($event)">
 </mat-form-field>
+<p>{{value}}</p>
 <br>

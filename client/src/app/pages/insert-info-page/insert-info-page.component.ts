@@ -25,17 +25,18 @@ export class InsertInfoPageComponent implements OnInit,OnChanges {
   ngOnInit(): void {
     //this.loadComponents();
     this.getInsertPageComponent();
-    this.viewInfo();
   }
 
   loadComponents(name:string,data:any){
     const components = new InfoComponent();
     const component =  components.getComponents(name);
     //console.log(component);
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef  = this.pageInsert.viewContainerRef; 
     const componentRef = viewContainerRef.createComponent(componentFactory);
     componentRef.instance.label = data;
+    componentRef.instance.output.subscribe(event => console.log(event));
   }
   async getInsertPageComponent(){
     //let data = (await this.pageService.getComponentOfPage("insert"));
@@ -44,13 +45,13 @@ export class InsertInfoPageComponent implements OnInit,OnChanges {
       this.loadComponents(list[i].type,list[i].label);
     }
   }
+  value;
+  collectData(value){
+  }
+  viewData(event:any){
+    console.log(event.target.value);
+  }
 
-  info = ["sad"];
-  addItems(data:string){
-    console.log(data);
-  }
-  async viewInfo(){
-    console.log(this.info);
-  }
+  
 
 }
