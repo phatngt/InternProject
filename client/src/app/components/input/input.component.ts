@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+export class Data{
+  data:string;
+}
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
@@ -7,13 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputComponent implements OnInit {
   label = "Name"
-  value;
+  value: Data;
   constructor() { }
 
   ngOnInit(): void {
   }
   onKey(event: any){
-    this.value =  event.target.value;
+    this.value.data =  event.target.value;
   }
 
 }
