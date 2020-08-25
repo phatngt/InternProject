@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { TransdataService} from 'src/app/service/transdata.service'
 export class Data{
   data:string;
 }
@@ -10,21 +10,16 @@ export class Data{
 })
 export class InputComponent implements OnInit {
 
-  @Input() label = ""
-  @Output() newInfoItem = new EventEmitter<any>();
+  @Input() label = " "
+  
 
-  data = new Observable(observer =>{
-    
-  });
-
-  constructor() { }
+  constructor(private service: TransdataService) { }
 
   ngOnInit(): void {
   }
-  value;
   onKey(event: any){
-    this.newInfoItem.emit(event);
-    console.log(event)
-    this.value = event.target.value;
+    this.service.changeData(event.target.value);
+    return event.target.value;
   }
+
 }
