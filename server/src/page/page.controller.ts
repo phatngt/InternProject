@@ -5,13 +5,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
 import Page from './page.entity';
 import {Response} from '../response'
+import { InputService } from 'src/input/input.service';
+import { type } from 'os';
 
 @Controller('page')
 export class PageController {
 
   constructor(@InjectRepository(Page)
   private pageRepository: Repository<Page>,
-    private readonly pageService: PageService){
+  private readonly pageService: PageService,
+  private inputService: InputService,){
 
   }
   
@@ -39,25 +42,45 @@ export class PageController {
 
 
     @Get('name')
-    async getList(@Query('keyword') keyword : string): Promise<Response> {
+    async getList(@Query('keyword') keyword : string): Promise<any> {
       var response = new Response();
-      try {
+      // try {
 
-       var query = this.pageRepository.createQueryBuilder("page")
+      //  var query = this.pageRepository.createQueryBuilder("page")
        
-       if(keyword){
-         query = query.where('page.name = :name',{name: keyword})
-       }
+      //  if(keyword){
+      //    query = query.where('page.name = :name',{name: keyword})
+      //  }
 
-       response.data = await query.getMany();
+      //  response.data = await query.getMany();
 
-      } catch (ex) {
-        console.log("error: " + ex.message);
-        response.error.push(ex.message);
-        response.success = false;
-      }
-    
-     return response;
+      // } catch (ex) {
+      //   console.log("error: " + ex.message);
+      //   response.error.push(ex.message);
+      //   response.success = false;
+      // }
+      
+      try {
+        let dataOfPageTable;
+        var query = this.pageRepository.createQueryBuilder("page")
+        if(keyword){
+          query = query.where('page.name = :name',{name: keyword}).leftJoinAndSelect("page.components","name_page");
+          dataOfPageTable = await query.getMany();
+          response.data = dataOfPageTable;
+        }
+        if(dataOfPageTable){ 
+          let typeComponent = this.pageService.handleDataFromPageTable(dataOfPageTable);
+         // response.data = typeComponent;
+
+        }
+        } catch (ex) {
+          console.log("error: " + ex.message);
+          response.error.push(ex.message);
+          response.success = false;
+        }
+      
+      
+      return response;
    }
     
 

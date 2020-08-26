@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TransdataService} from 'src/app/service/transdata.service'
-export class Data{
-  data:string;
-}
+import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
@@ -10,16 +8,17 @@ export class Data{
 })
 export class InputComponent implements OnInit {
 
-  @Input() label = " "
-  
+  @Input() label = ""
 
-  constructor(private service: TransdataService) { }
+  constructor(private transservice: TransdataService) { }
 
   ngOnInit(): void {
   }
   onKey(event: any){
-    this.service.changeData(event.target.value);
-    return event.target.value;
+    let data:DataOfInsertPage = {};
+    data.label = this.label;
+    data.value = event.target.value;
+    this.transservice.transData(data);
   }
 
 }

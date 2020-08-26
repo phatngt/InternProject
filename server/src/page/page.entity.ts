@@ -1,15 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
+import { type } from 'os';
+import Component from 'src/component/component.entity';
 
 @Entity()
 export class Page {
   @PrimaryGeneratedColumn()
   id: number;
-
   @Column()
   name: string;
-
-  @Column()
-  name_component: string;
+  @OneToMany(type=>Component,component=>component.name_page)
+  components: Component[]
 }
 
 

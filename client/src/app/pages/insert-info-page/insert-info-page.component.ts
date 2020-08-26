@@ -2,55 +2,63 @@ import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, Cont
 import { AppDirective } from 'src/app/directive/app.directive';
 import {InfoComponent} from 'src/app/infocomponents/infocomponents'
 import {TransdataService} from 'src/app/service/transdata.service'
-import { __values } from 'tslib';
+import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
+
 @Component({
   selector: 'app-insert-info-page',
   templateUrl: './insert-info-page.component.html',
   styleUrls: ['./insert-info-page.component.css']
 })
-export class InsertInfoPageComponent implements OnInit,OnChanges {
+export class InsertInfoPageComponent implements OnInit {
 
   @ViewChild(AppDirective,{static:true}) 
   pageInsert: AppDirective;
 
-  componentRef = []
+  componentRef = [];
+  dataOfPage = [];
   
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private service: TransdataService,
+    private transservice: TransdataService,
     ) { }
-  ngOnChanges(){
-    this.viewData();
-  }
 
   ngOnInit(): void {
-    //this.loadComponents();
-    this.getInsertPageComponent();
-    //this.viewData();
+    this.renderInsertPage();
+    this.collectData();
   }
 
-  loadComponents(name:string){
+  loadComponents(name_component:string,data:any){
     const components = new InfoComponent();
-    const component =  components.getComponents(name);
+    const component =  components.getComponents(name_component);
     //console.log(component);
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     const viewContainerRef  = this.pageInsert.viewContainerRef; 
-    this.componentRef.push(viewContainerRef.createComponent(componentFactory));
+    const componentRef  = viewContainerRef.createComponent(componentFactory);
+    componentRef.instance.label = data;
   }
-  async getInsertPageComponent(){
+  async renderInsertPage(){
     //let data = (await this.pageService.getComponentOfPage("insert"));
     let list = [{type:"input",label:"First name"},{type:"input",label:"Last name"}]
     for(let i=0; i < list.length ; i++){
-      this.loadComponents(list[i].type);
-      this.componentRef[i].instance.label = list[i].label;
+      this.loadComponents(list[i].type,list[i].label);
     }
   }
-  collectData(value){
-    console.log(value)
-  }
-  viewData(){
-    console.log(this.service.currentData.source);
+
+  collectData(){
+    console.log(this.transservice.transdata.subscribe(data=>{
+      let info:DataOfInsertPage = data;
+      console.log(info.label);
+      let index = this.dataOfPage.findIndex(p=>p.label === info.label)
+      console.log(index)
+      if(index !=-1){
+        this.dataOfPage[index].value = info.value;
+      }
+      else{
+        this.dataOfPage.push(info);
+      }
+      console.log(this.dataOfPage)
+    }));
   }
 
   

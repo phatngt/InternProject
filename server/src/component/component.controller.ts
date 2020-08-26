@@ -43,10 +43,11 @@ export class ComponentController {
        var query = this.componentRepository.createQueryBuilder("template")
        
        if(keyword){
-         query = query.where('template.name like :name',{name: '%' + keyword + '%'})
+         query = query.where('template.type like :name',{name: /*'%' + keyword + '%'}*/ keyword})
+         query = query.leftJoinAndSelect("template.input_page","pages");
        }
 
-       response.data = await query.orderBy("template.id","DESC").getMany();
+       response.data = await query.getMany();
 
       } catch (ex) {
         console.log("error: " + ex.message);
