@@ -1,0 +1,8 @@
+INSERT INTO input (id,label,placeholder,css,page)
+VALUES 	(DEFAULT,'First name','First name','null','insert'),
+		(DEFAULT,'Last name','Last name','null','insert'),
+		(DEFAULT,'Email','Email','null','insert'),
+		(DEFAULT,'Adress','Adress','null','insert'),
+		(DEFAULT,'Phone number','Phone','null','insert')
+SELECT * FROM input
+ORDER BY id ASC

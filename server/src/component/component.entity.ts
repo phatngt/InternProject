@@ -11,11 +11,10 @@ export class Component {
   @Column()
   type: string;
 
-  @ManyToOne(type=>Page,page=>page.components)
-  name_page:Page
-
-  @OneToMany(type=>Input,input=>input.pages)
-  input_page:Input[]
+  @Column()
+  page:string;
+ 
+ 
   // @Column({ default: true })
   // delete_flag: boolean;
 }

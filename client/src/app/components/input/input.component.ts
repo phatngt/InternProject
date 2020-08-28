@@ -8,7 +8,8 @@ import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
 })
 export class InputComponent implements OnInit {
 
-  @Input() label = ""
+  @Input() data;
+  label = ""
 
   constructor(private transservice: TransdataService) { }
 
