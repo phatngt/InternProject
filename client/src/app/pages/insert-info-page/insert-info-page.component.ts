@@ -14,7 +14,7 @@ export class InsertInfoPageComponent implements OnInit {
   @ViewChild(AppDirective,{static:true}) 
   pageInsert: AppDirective;
 
-  componentRef = [];
+ 
   dataOfPage = [];
   
   constructor(
