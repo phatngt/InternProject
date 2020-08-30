@@ -8,8 +8,7 @@ export class Page {
   id: number;
   @Column()
   name: string;
-  @OneToMany(type=>Component,component=>component.name_page)
-  components: Component[]
+ 
 }
 
 

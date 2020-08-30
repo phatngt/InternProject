@@ -1,0 +1,10 @@
+select * from component
+delete from component
+
+insert into component (id, type,page)
+values 	(default, 'input', 'insert'),
+		(default, 'button', 'insert'),
+		(default, 'checkbox', 'insert'),
+		(default, 'calendar', 'insert'),
+		(default, 'menu', 'insert')
+		

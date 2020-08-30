@@ -13,6 +13,6 @@ export class Input{
     placeholder:string
     @Column()
     css:string
-    @ManyToOne(type=>Component,component => component.input_page)
-    pages: Component
+    @Column()
+    page:string
 }
