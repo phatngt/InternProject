@@ -1,0 +1,74 @@
+-- FUNCTION: public.getdataofpage(text)
+
+-- DROP FUNCTION public.getdataofpage(text);
+
+CREATE OR REPLACE FUNCTION public.getdataofpage(
+	page_name text)
+	RETURNS text[]
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    
+AS $BODY$
+declare 
+	comps_record record;
+	comps_text text;
+	comp_record record;
+	comp_text text;
+	col_record record;
+	array_col text[];
+	col_text text;
+	ele_col text;
+	ele_result text;
+	result_page_temp text;
+	result_page text[];
+	array_data text[];
+	value_temp text;
+	_index int := 0;
+begin
+	for comps_record in 
+		select c.type from component c where c.page = page_name
+	loop
+		comps_text := translate(comps_record::text,'()','');
+		raise notice '%',comps_text;
+		for col_record in 
+			execute format('select i_c.column_name from information_schema.columns i_c where table_name = ''%I''',comps_text)
+		loop
+			col_text := translate(col_record::text,'()','');
+			array_col := array_append(array_col,col_text);
+		end loop;
+		raise notice '%',array_col[1];
+		raise notice '%',array_length(array_col,1);
+		for comp_record in
+			 execute format('select * from %I c_t where c_t.page = ''%I''',comps_text,page_name)
+		loop
+			comp_text := translate(comp_record::text,'""','');
+			comp_text := translate(comp_text,'()','');
+			raise notice '%',comp_text;
+			array_data := array_append(array_data,comp_text);
+		end loop;
+		foreach ele_result in array array_data
+		loop
+			result_page_temp := concat('type:',comps_text);
+			foreach ele_col in array array_col
+			loop
+				_index := _index+1;
+				value_temp = split_part(ele_result,',',_index);
+-- 				raise notice '-%',value_temp;
+				value_temp = concat(ele_col,':',value_temp);
+				raise notice '%',value_temp;
+				result_page_temp = concat(result_page_temp,',',value_temp);
+			end loop;
+				result_page = array_append(result_page,result_page_temp);
+				
+				raise notice '%',result_page;
+				_index := 0;
+		end loop;
+	end loop;
+	return result_page;
+end;
+$BODY$;
+
+ALTER FUNCTION public.getdataofpage(text)
+    OWNER TO postgres;

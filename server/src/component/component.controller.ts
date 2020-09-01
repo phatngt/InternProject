@@ -5,12 +5,14 @@ import { Repository } from 'typeorm/repository/Repository';
 
 import {Response} from '../response'
 import { Component } from './component.entity';
+import { Connection } from 'typeorm';
 
 @Controller('component')
 export class ComponentController {
 
   constructor(@InjectRepository(Component)
-  private componentRepository: Repository<Component>){
+  private componentRepository: Repository<Component>,
+  private connection: Connection){
   }
   
 
@@ -23,14 +25,14 @@ export class ComponentController {
         .where('template.id = :templateId',{templateId: id})
         .getOne();
         
-        
 
        } catch (ex) {
         console.log("error: " + ex.message);
          response.error.push(ex.message);
          response.success = false;
        }
-     
+      
+
       return response;
     }
 

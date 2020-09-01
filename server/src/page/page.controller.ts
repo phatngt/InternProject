@@ -7,6 +7,7 @@ import Page from './page.entity';
 import {Response} from '../response'
 import { InputService } from 'src/input/input.service';
 import { type } from 'os';
+import { Connection } from 'typeorm';
 
 @Controller('page')
 export class PageController {
@@ -14,7 +15,8 @@ export class PageController {
   constructor(@InjectRepository(Page)
   private pageRepository: Repository<Page>,
   private readonly pageService: PageService,
-  private inputService: InputService,){
+  private connection:Connection
+  ){
 
   }
   
@@ -22,20 +24,26 @@ export class PageController {
     @Get()
      async findOne(@Query('id') id : number): Promise<any> {
        var response = new Response();
-       try {
-        response.data = await this.pageRepository
-        .createQueryBuilder("page")
-        .where('page.id = :pageId',{pageId: id})
-        .getOne();
+      //  try {
+      //   response.data = await this.pageRepository
+      //   .createQueryBuilder("page")
+      //   .where('page.id = :pageId',{pageId: id})
+      //   .getOne();
         
         
 
-       } catch (ex) {
-        console.log("error: " + ex.message);
-         response.error.push(ex.message);
-         response.success = false;
-       }
-     
+      //  } catch (ex) {
+      //   console.log("error: " + ex.message);
+      //    response.error.push(ex.message);
+      //    response.success = false;
+      //  }
+      let query = this.connection.createQueryRunner();
+      let data = await query.query("select getdataofpage('insert')");
+      // let values = Object.values(data[0]);
+      // console.log(values[0])
+      //console.log(data);
+      response.data = this.pageService.handleDataOfPage(data);
+      //response.data = await query.query("select getdataofpage('insert')");
       return response;
       // return this.pageService.findAll();
     }
