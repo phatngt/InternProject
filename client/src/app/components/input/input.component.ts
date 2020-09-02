@@ -9,15 +9,15 @@ import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
 export class InputComponent implements OnInit {
 
   @Input() data;
-  label = ""
-
+  //label = this.data.label;
   constructor(private transservice: TransdataService) { }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
   onKey(event: any){
     let data:DataOfInsertPage = {};
-    data.label = this.label;
+    data.label = this.data.label;
     data.value = event.target.value;
     this.transservice.transData(data);
   }

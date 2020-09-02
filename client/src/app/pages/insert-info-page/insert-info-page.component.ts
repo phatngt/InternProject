@@ -13,12 +13,6 @@ export class InsertInfoPageComponent implements OnInit {
   //Virw child partion
   @ViewChild(AppDirective,{static:true}) 
   pageInsert: AppDirective;
-<<<<<<< HEAD
-
- 
-=======
-  //Declared variable partion
->>>>>>> ab5a981cc3dfd86a0d16524ebfe1534872980af4
   dataOfPage = [];
   
   constructor(
@@ -44,10 +38,10 @@ export class InsertInfoPageComponent implements OnInit {
   }
   async renderInsertPage(){
     let data = (await this.pageService.getComponentOfPage("insert"));
-    // let list = [{type:"input",label:"First name"},{type:"input",label:"Last name"}]
-    for(let i=0; i < data.length ; i++){
-      this.loadComponents("input",data[i].label);
-    }
+    for(let i=0; i < data.length ; i++)
+      for(let j = 0; j < data[i].data.length;j++){
+        this.loadComponents(data[i].type,data[i].data[j]);
+      }     
   }
 
   collectData(){

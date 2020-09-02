@@ -70,9 +70,6 @@ export class PageService {
         type['type'.trim()] = name_type_past;
         data['data'.trim()] = dataColectionArr;
         result.push(Object.assign(type,data));
-        console.log(name_type_past);
-        console.log(name_type_past !== name_type_current && values[0] !== value);
-        console.log(dataColectionArr);
         dataColectionArr = [];
       }
       dataColectionArr.push(dataCollection);

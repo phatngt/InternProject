@@ -6,7 +6,7 @@ import { ClickEmitEventService} from 'src/app/service/click-emit-event.service'
   styleUrls: ['./button.component.css']
 })
 export class ButtonComponent implements OnInit {
-  @Input() name_button = 'Button';
+  @Input() data:any;
   constructor(private clickEmitEvent: ClickEmitEventService ) { }
 
   ngOnInit(): void {

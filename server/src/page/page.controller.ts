@@ -25,27 +25,16 @@ export class PageController {
      async findOne(@Query('id') id : number): Promise<any> {
        var response = new Response();
       //  try {
-      //   response.data = await this.pageRepository
-      //   .createQueryBuilder("page")
-      //   .where('page.id = :pageId',{pageId: id})
-      //   .getOne();
-        
-        
+      //   let query = this.connection.createQueryRunner();
+      //   let data = await query.query("select getdataofpage('insert')");
+      //   response.data = this.pageService.handleDataOfPage(data);
 
       //  } catch (ex) {
       //   console.log("error: " + ex.message);
-      //    response.error.push(ex.message);
-      //    response.success = false;
+      //   response.error.push(ex.message);
+      //   response.success = false;
       //  }
-      let query = this.connection.createQueryRunner();
-      let data = await query.query("select getdataofpage('insert')");
-      // let values = Object.values(data[0]);
-      // console.log(values[0])
-      //console.log(data);
-      response.data = this.pageService.handleDataOfPage(data);
-      //response.data = await query.query("select getdataofpage('insert')");
       return response;
-      // return this.pageService.findAll();
     }
 
 
@@ -53,40 +42,34 @@ export class PageController {
     async getList(@Query('keyword') keyword : string): Promise<any> {
       var response = new Response();
       // try {
+      //   let dataOfPageTable;
+      //   var query = this.pageRepository.createQueryBuilder("page")
+      //   if(keyword){
+      //     query = query.where('page.name = :name',{name: keyword}).leftJoinAndSelect("page.components","name_page");
+      //     dataOfPageTable = await query.getMany();
+      //     response.data = dataOfPageTable;
+      //   }
+      //   if(dataOfPageTable){ 
+      //     let typeComponent = this.pageService.handleDataFromPageTable(dataOfPageTable);
+      //     response.data = typeComponent;
 
-      //  var query = this.pageRepository.createQueryBuilder("page")
-       
-      //  if(keyword){
-      //    query = query.where('page.name = :name',{name: keyword})
-      //  }
-
-      //  response.data = await query.getMany();
-
-      // } catch (ex) {
-      //   console.log("error: " + ex.message);
-      //   response.error.push(ex.message);
-      //   response.success = false;
-      // }
-      
+      //   }
+      //   } catch (ex) {
+      //     console.log("error: " + ex.message);
+      //     response.error.push(ex.message);
+      //     response.success = false;
+      //   }
       try {
-        let dataOfPageTable;
-        var query = this.pageRepository.createQueryBuilder("page")
-        if(keyword){
-          query = query.where('page.name = :name',{name: keyword}).leftJoinAndSelect("page.components","name_page");
-          dataOfPageTable = await query.getMany();
-          response.data = dataOfPageTable;
-        }
-        if(dataOfPageTable){ 
-          let typeComponent = this.pageService.handleDataFromPageTable(dataOfPageTable);
-         // response.data = typeComponent;
+        let query = this.connection.createQueryRunner();
+        let queryStatement  = "select getdataofpage('"+keyword+"')";
+        let data = await query.query(queryStatement);
+        response.data = this.pageService.handleDataOfPage(data);
 
-        }
-        } catch (ex) {
-          console.log("error: " + ex.message);
-          response.error.push(ex.message);
-          response.success = false;
-        }
-      
+       } catch (ex) {
+        console.log("error: " + ex.message);
+        response.error.push(ex.message);
+        response.success = false;
+       }
       
       return response;
    }

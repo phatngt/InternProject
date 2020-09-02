@@ -12,7 +12,7 @@ export class PagesService {
     ) { }
   //the function name is fine
   async getDataOfPage(name_page:string):Promise<any>{
-    const pageUrl = ((await (await this.configService.getConfig()).inputUrl))+"/page?keyword=" + name_page;
+    const pageUrl = ((await (await this.configService.getConfig()).pageUrl))+"/name?keyword=" + name_page;
     console.log(pageUrl)
     return this.http.get(pageUrl).toPromise();
   } 
@@ -21,11 +21,7 @@ export class PagesService {
     let response = await this.getDataOfPage(name_page);
     const flag_page = response["success"];
     if(flag_page){
-      let listComponent = [];
-      let list = response["data"]
-      Object.keys(list).forEach(p=> listComponent.push({"label":list[p].label,"placeholder":list[p].placeholder}))
-      console.log(listComponent);
-      return listComponent;
+      return response["data"];
     }
   }
 
