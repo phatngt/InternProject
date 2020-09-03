@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, ContentChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, ContentChildren, QueryList, Input, SimpleChanges } from '@angular/core';
 import { AppDirective } from 'src/app/directive/app.directive';
 import {InfoComponent} from 'src/app/infocomponents/infocomponents'
 import {TransdataService} from 'src/app/service/transdata.service'
@@ -9,19 +9,23 @@ import {PagesService} from 'src/app/pages/services/pages.service'
   templateUrl: './insert-info-page.component.html',
   styleUrls: ['./insert-info-page.component.css']
 })
-export class InsertInfoPageComponent implements OnInit {
+export class InsertInfoPageComponent implements OnInit,OnChanges {
   //Virw child partion
-  @ViewChild(AppDirective,{static:true}) 
+  @ViewChild(AppDirective,{static:false}) 
   pageInsert: AppDirective;
+  pageInsert1: AppDirective;
   dataOfPage = [];
-  
+  @Input() condition:boolean = true;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private transservice: TransdataService,
-    private pageService: PagesService
+    private pageService: PagesService,
     ) { }
 
+  ngOnChanges():void{
+  }
   ngOnInit(): void {
+    
     this.renderInsertPage();
     this.collectData();
   }
@@ -29,12 +33,11 @@ export class InsertInfoPageComponent implements OnInit {
   loadComponents(name_component:string,data:any){
     const components = new InfoComponent();
     const component =  components.getComponents(name_component);
-    //console.log(component);
-
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    const viewContainerRef  = this.pageInsert.viewContainerRef; 
+    var viewContainerRef  = this.pageInsert.viewContainerRef;
     const componentRef  = viewContainerRef.createComponent(componentFactory);
     componentRef.instance.data = data;
+  
   }
   async renderInsertPage(){
     let data = (await this.pageService.getComponentOfPage("insert"));
@@ -45,7 +48,7 @@ export class InsertInfoPageComponent implements OnInit {
   }
 
   collectData(){
-    console.log(this.transservice.transdata.subscribe(data=>{
+    this.transservice.transdata.subscribe(data=>{
       let info:DataOfInsertPage = data;
       console.log(info.label);
       let index = this.dataOfPage.findIndex(p=>p.label === info.label)
@@ -57,9 +60,7 @@ export class InsertInfoPageComponent implements OnInit {
         this.dataOfPage.push(info);
       }
       console.log(this.dataOfPage)
-    }));
+    });
   }
-
-  
 
 }

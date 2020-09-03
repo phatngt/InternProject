@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http'
+import {FormsModule} from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,11 @@ import { AppDirective } from './directive/app.directive';
 import { InputComponent } from './components/input/input.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
-import { ButtonComponent } from './components/button/button.component'
+import { ButtonComponent } from './components/button/button.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { RadiobuttonComponent } from './components/radiobutton/radiobutton.component';
+import { SelectComponent } from './components/select/select.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,14 +25,18 @@ import { ButtonComponent } from './components/button/button.component'
     SearchPageComponent,
     AppDirective,
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    CheckboxComponent,
+    RadiobuttonComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

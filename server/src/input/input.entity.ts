@@ -15,4 +15,6 @@ export class Input{
     css:string
     @Column()
     page:string
-}
+    @Column()
+    location:string;    
+}   

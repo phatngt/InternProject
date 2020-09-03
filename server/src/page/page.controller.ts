@@ -64,7 +64,6 @@ export class PageController {
         let queryStatement  = "select getdataofpage('"+keyword+"')";
         let data = await query.query(queryStatement);
         response.data = this.pageService.handleDataOfPage(data);
-
        } catch (ex) {
         console.log("error: " + ex.message);
         response.error.push(ex.message);
