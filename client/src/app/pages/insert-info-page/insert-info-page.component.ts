@@ -1,50 +1,65 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, ContentChildren, QueryList, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, ContentChildren, QueryList, Input, SimpleChanges, AfterViewInit, ViewContainerRef } from '@angular/core';
 import { AppDirective } from 'src/app/directive/app.directive';
 import {InfoComponent} from 'src/app/infocomponents/infocomponents'
 import {TransdataService} from 'src/app/service/transdata.service'
 import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
 import {PagesService} from 'src/app/pages/services/pages.service'
+import { verifyHostBindings } from '@angular/compiler';
+import { ClickEmitEventService } from 'src/app/service/click-emit-event.service';
 @Component({
   selector: 'app-insert-info-page',
   templateUrl: './insert-info-page.component.html',
   styleUrls: ['./insert-info-page.component.css']
 })
-export class InsertInfoPageComponent implements OnInit,OnChanges {
+export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
   //Virw child partion
-  @ViewChild(AppDirective,{static:false}) 
-  pageInsert: AppDirective;
-  pageInsert1: AppDirective;
+  @ViewChild(AppDirective,{static:true}) 
+  pageInsert:AppDirective;
   dataOfPage = [];
   @Input() condition:boolean = true;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private transservice: TransdataService,
     private pageService: PagesService,
+    private emitEventService: ClickEmitEventService,
     ) { }
 
   ngOnChanges():void{
   }
   ngOnInit(): void {
     
-    this.renderInsertPage();
+    this.recieveClickEvent();
     this.collectData();
+    console.log(this.pageInsert);
   }
-
-  loadComponents(name_component:string,data:any){
+  ngAfterViewInit(){
+    console.log(this.pageInsert);
+    this.renderInsertPage();
+  }
+  loadComponents(name_component:string,data:any,bool){
     const components = new InfoComponent();
     const component =  components.getComponents(name_component);
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    var viewContainerRef  = this.pageInsert.viewContainerRef;
+    var componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    //const  viewContainerRef  = this.pageInsert.viewContainerRef;
+    const viewContainerRef = this.pageInsert.viewContainerRef;
+    console.log(viewContainerRef)
     const componentRef  = viewContainerRef.createComponent(componentFactory);
+    console.log(componentRef);
     componentRef.instance.data = data;
+    }
   
-  }
   async renderInsertPage(){
     let data = (await this.pageService.getComponentOfPage("insert"));
-    for(let i=0; i < data.length ; i++)
+    console.log(data);
+    for(let i=0; i < data.length ; i++){
+      console.log(1);
       for(let j = 0; j < data[i].data.length;j++){
-        this.loadComponents(data[i].type,data[i].data[j]);
-      }     
+        let bool = true;
+        if(j%2 ==0 ) bool = false;
+        this.loadComponents(data[i].type,data[i].data[j],bool);
+      }
+    }
+      //console.log(data[i].data.length);     
   }
 
   collectData(){
@@ -61,6 +76,32 @@ export class InsertInfoPageComponent implements OnInit,OnChanges {
       }
       console.log(this.dataOfPage)
     });
+  }
+
+  recieveClickEvent(){
+    this.emitEventService.clickEvent.subscribe(data=>{
+      if(data == 'submit()'){
+        this.postInfoEmployee();
+      }
+    })
+  }
+
+  handleInfoEmp(){
+    let data = this.dataOfPage;
+    var infoEmp :Object = {};
+    data.forEach(p=>{
+      let object = {};
+      object[p.label.trim()] = p.value.trim();
+      console.log(object);
+      infoEmp = Object.assign(infoEmp,object);
+    })
+    return infoEmp;
+  }
+  check;
+  postInfoEmployee(){
+    let info = this.handleInfoEmp();
+    console.log(info);
+    this.pageService.postInfoEmployee(info).subscribe(data=>{this.check = data});
   }
 
 }

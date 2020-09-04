@@ -1,6 +1,6 @@
-<mat-form-field appearance="fill">
-    <mat-label >{{data.label}}</mat-label>
-    <input matInput placeholder="{{data.placeholder}}" (change) = "onKey($event)">
-</mat-form-field>
-<!-- <p>{{value}}</p> -->
-<br>
+<div>
+    <mat-form-field appearance="fill" class="{{data.css}}">
+        <mat-label >{{data.label}}</mat-label>
+        <input matInput placeholder="{{data.placeholder}}" (change) = "onKey($event)">
+    </mat-form-field>
+</div>

@@ -12,11 +12,14 @@ import { InputService } from './input/input.service';
 import { ComponentService } from './component/component.service';
 import Component from './component/component.entity';
 import { Input } from './input/input.entity';
+import { EmployeeController } from './employee/employee.controller';
+import { EmployeeService } from './employee/employee.service';
+import { Employee } from './employee/employee.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot(DB_CONFIG),
-  TypeOrmModule.forFeature([Page,Component,Input])],
-  controllers: [AppController,PageController,ComponentController, InputController],
-  providers: [AppService,PageService, InputService, ComponentService,],
+  TypeOrmModule.forFeature([Page,Component,Input,Employee])],
+  controllers: [AppController,PageController,ComponentController, InputController, EmployeeController],
+  providers: [AppService,PageService, InputService, ComponentService, EmployeeService,],
 })
 export class AppModule {}

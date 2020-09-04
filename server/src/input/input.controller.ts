@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body } from '@nestjs/common';
 import { InputService } from './input.service';
 import {Input} from './input.entity'
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,5 +12,9 @@ export class InputController {
     async getInfoPage(@Query('keyword') keyword): Promise<any>{
         let response  = await this.inputService.findAll(keyword);
         return response;
+    }
+    @Post()
+    async postInfo(@Body() info){
+        
     }
 }

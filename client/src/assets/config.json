@@ -1,5 +1,6 @@
 {
     "pageUrl":"http://localhost:3000/page",
     "componentUrl":"http://localhost:3000/component",
-    "inputUrl":"http://localhost:3000/input"
+    "inputUrl":"http://localhost:3000/input",
+    "employeeUrl":"http://localhost:3000/employee"
 }

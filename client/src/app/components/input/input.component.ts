@@ -21,7 +21,11 @@ export class InputComponent implements OnInit,OnChanges {
   }
   onKey(event: any){
     let data:DataOfInsertPage = {};
-    data.label = this.data.label;
+    let label:Array<String> = this.data.label.split(' ');
+    console.log(label.length);
+    console.log(label);
+    if(label.length > 1) data.label = label[0]+'_'+label[1];
+    else data.label = this.data.label;
     data.value = event.target.value;
     this.transservice.transData(data);
   }

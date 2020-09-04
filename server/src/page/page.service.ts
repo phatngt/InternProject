@@ -48,18 +48,21 @@ export class PageService {
     
     var dataColectionArr = [];
     values.forEach(function(value:string){
-
       let array_element = value.split(",");
       if(values[values.length-1] === value) isFinal = true;
       var dataCollection = {};
       array_element.forEach(function(value){
         let element = value.split(':');
         let object = {};
+        if(element[0].trim() === 'action'.trim()){
+          element[1] = element[1]+'()';
+        }
         object[element[0].trim()] = element[1].trim();
+        
         if(element[0].trim() === 'type'.trim()){
           name_type_current = element[1];
         }
-        else
+        else 
           dataCollection = Object.assign(dataCollection,object);
       })
       if(isFinal) dataColectionArr.push(dataCollection);

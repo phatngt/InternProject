@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import {ConfigService} from 'src/app/configure/config.service'
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +13,7 @@ export class PagesService {
     ) { }
   //the function name is fine
   async getDataOfPage(name_page:string):Promise<any>{
-    const pageUrl = ((await (await this.configService.getConfig()).pageUrl))+"/name?keyword=" + name_page;
-    console.log(pageUrl)
+    let pageUrl = (await this.configService.getConfig()).pageUrl +"/name?keyword=" + name_page;   
     return this.http.get(pageUrl).toPromise();
   } 
   //the function name isn't fine
@@ -23,6 +23,14 @@ export class PagesService {
     if(flag_page){
       return response["data"];
     }
+  }
+
+  postInfoEmployee(data:Object):Observable<any>{
+    //const employeUrl = this.configService.getConfig().employeeUrl;
+    //console.log(employeUrl);
+    console.log(data);
+    //
+    return this.http.post<any>("http://localhost:3000/employee",data);
   }
 
 }

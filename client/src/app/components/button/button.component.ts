@@ -12,7 +12,7 @@ export class ButtonComponent implements OnInit {
   ngOnInit(): void {
   }
   emitEvent(){
-    let data:Object;
+    this.clickEmitEvent.click(this.data.action);
   }
 
 }

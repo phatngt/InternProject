@@ -1,7 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinTable, ManyToMany, ManyToOne } from "typeorm";
-import { type } from "os";
-import Page from "src/page/page.entity";
-import Component from "src/component/component.entity";
+
 
 @Entity()
 export class Input{
