@@ -1,8 +1,9 @@
 .submit{
-    margin-left: 1000px;;
+    margin-left: 10px;;
+    background: blue;
 }
-.cancle{
-
+.cancel{
+    background: red;
 }
 .search{
 

@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, ContentChildren, QueryList, Input, SimpleChanges, AfterViewInit, ViewContainerRef } from '@angular/core';
-import { AppDirective } from 'src/app/directive/app.directive';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, ContentChildren, QueryList, Input, SimpleChanges, AfterViewInit, ViewContainerRef, ComponentRef } from '@angular/core';
+import { AppDirective } from 'src/app/directive/insert-page/left.directive';
 import {InfoComponent} from 'src/app/infocomponents/infocomponents'
 import {TransdataService} from 'src/app/service/transdata.service'
 import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
 import {PagesService} from 'src/app/pages/services/pages.service'
-import { verifyHostBindings } from '@angular/compiler';
 import { ClickEmitEventService } from 'src/app/service/click-emit-event.service';
+import { RightDirective } from 'src/app/directive/insert-page/right.directive';
 @Component({
   selector: 'app-insert-info-page',
   templateUrl: './insert-info-page.component.html',
@@ -14,9 +14,12 @@ import { ClickEmitEventService } from 'src/app/service/click-emit-event.service'
 export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
   //Virw child partion
   @ViewChild(AppDirective,{static:true}) 
-  pageInsert:AppDirective;
+  leftPage:AppDirective;
+  @ViewChild(RightDirective,{static:true})
+  rightPage:RightDirective;
+  bool:boolean = false;
   dataOfPage = [];
-  @Input() condition:boolean = true;
+  arrayComponent:ComponentRef<any>[] = [];
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private transservice: TransdataService,
@@ -30,33 +33,43 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
     
     this.recieveClickEvent();
     this.collectData();
-    console.log(this.pageInsert);
+    
   }
   ngAfterViewInit(){
-    console.log(this.pageInsert);
+    
     this.renderInsertPage();
+    
   }
-  loadComponents(name_component:string,data:any,bool){
+  loadComponents(name_component:string,data:any){
     const components = new InfoComponent();
     const component =  components.getComponents(name_component);
     var componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    //const  viewContainerRef  = this.pageInsert.viewContainerRef;
-    const viewContainerRef = this.pageInsert.viewContainerRef;
-    console.log(viewContainerRef)
+    var viewContainerRef:ViewContainerRef;
+    if(data.location == '1'){
+      viewContainerRef = this.leftPage.viewContainerRef;
+    }
+    if(data.location == '2'){
+       viewContainerRef = this.rightPage.viewContainerRef;
+    }
+   
     const componentRef  = viewContainerRef.createComponent(componentFactory);
-    console.log(componentRef);
+
     componentRef.instance.data = data;
+    this.arrayComponent.push(componentRef);
+    console.log(this.arrayComponent);
     }
   
   async renderInsertPage(){
     let data = (await this.pageService.getComponentOfPage("insert"));
-    console.log(data);
-    for(let i=0; i < data.length ; i++){
-      console.log(1);
-      for(let j = 0; j < data[i].data.length;j++){
-        let bool = true;
-        if(j%2 ==0 ) bool = false;
-        this.loadComponents(data[i].type,data[i].data[j],bool);
+    if(data.lenght != 0){
+      for(let i=0; i < data.length ; i++){
+        if(data[i].data.length === undefined){
+          this.loadComponents(data[i].type,data[i].data);
+        }
+        for(let j = 0; j < data[i].data.length;j++){
+
+          this.loadComponents(data[i].type,data[i].data[j]);
+        }
       }
     }
       //console.log(data[i].data.length);     
@@ -67,7 +80,6 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
       let info:DataOfInsertPage = data;
       console.log(info.label);
       let index = this.dataOfPage.findIndex(p=>p.label === info.label)
-      console.log(index)
       if(index !=-1){
         this.dataOfPage[index].value = info.value;
       }

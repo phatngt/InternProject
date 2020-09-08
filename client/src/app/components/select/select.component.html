@@ -1,8 +1,10 @@
-<mat-form-field appearance="fill">
-    <mat-label>Department</mat-label>
-    <mat-select >
-      <mat-option value="option1">Option 1</mat-option>
-      <mat-option value="option2" >Option 2 </mat-option>
-      <mat-option value="option3">Option 3</mat-option>
-    </mat-select>
-</mat-form-field>
+<div>
+  <mat-form-field appearance="fill">
+      <mat-label>{{data.label}}</mat-label>
+      <mat-select (selectionChange) ="emitEvent($event)">
+        <mat-option *ngFor = "let op of infoOption" [value]="op.value">
+            {{op.viewValue}}
+        </mat-option>
+      </mat-select>
+  </mat-form-field>
+</div>

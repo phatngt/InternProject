@@ -1,1 +1,4 @@
 <mat-checkbox *ngIf = "data.state">{{data.label}}</mat-checkbox>
+<mat-radio-group *ngIf = "!data.state">
+    <mat-radio-button *ngFor="let btn of listbtn" value="{{btn.value}}">{{btn.label}}</mat-radio-button>
+</mat-radio-group>

@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { TopbarComponent } from './components/topbar/topbar.component'
 import { InsertInfoPageComponent } from './pages/insert-info-page/insert-info-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { AppDirective } from './directive/app.directive';
+import { AppDirective } from './directive/insert-page/left.directive';
 import { InputComponent } from './components/input/input.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
@@ -16,6 +16,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { RadiobuttonComponent } from './components/radiobutton/radiobutton.component';
 import { SelectComponent } from './components/select/select.component';
+import { RightDirective } from './directive//insert-page/right.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SelectComponent } from './components/select/select.component';
     ButtonComponent,
     CheckboxComponent,
     RadiobuttonComponent,
-    SelectComponent
+    SelectComponent,
+    RightDirective
   ],
   imports: [
     BrowserModule,

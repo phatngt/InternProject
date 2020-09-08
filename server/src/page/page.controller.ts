@@ -14,13 +14,13 @@ export class PageController {
 
     @Get('name')
     async getList(@Query('keyword') keyword : string): Promise<any> {
-      console.log(2);
       var response = new Response();
       try {
         let query = this.connection.createQueryRunner();
         let queryStatement  = "select getdataofpage('"+keyword+"')";
         let data = await query.query(queryStatement);
         response.data = this.pageService.handleDataOfPage(data);
+        //response.data = data;
        } catch (ex) {
         console.log("error: " + ex.message);
         response.error.push(ex.message);

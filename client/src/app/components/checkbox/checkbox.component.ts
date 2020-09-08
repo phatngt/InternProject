@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CheckboxComponent implements OnInit {
   @Input() data:any;
   var = true;
- 
+  listbtn = [];
   constructor() { }
 
   ngOnInit(): void {

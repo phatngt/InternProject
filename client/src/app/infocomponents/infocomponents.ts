@@ -2,6 +2,7 @@
 import {TopbarComponent} from "../components/topbar/topbar.component"
 import {InputComponent} from "../components/input/input.component"
 import { ButtonComponent} from '../components/button/button.component'
+import {SelectComponent} from "../components/select/select.component"
 import { Type } from '@angular/core';
 
 export class InfoComponent{
@@ -11,6 +12,7 @@ export class InfoComponent{
             case "topbar": return TopbarComponent;
             case "input": return InputComponent;
             case "button": return ButtonComponent;
+            case "selecttb": return SelectComponent;
             default: return null;
         }
     }

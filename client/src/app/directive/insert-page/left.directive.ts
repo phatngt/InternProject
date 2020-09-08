@@ -1,7 +1,7 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[pageInsert]',
+  selector: '[leftPage]',
 })
 export class AppDirective {
   constructor(public viewContainerRef: ViewContainerRef ) { }

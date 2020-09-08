@@ -2,6 +2,7 @@
     margin-left: 8px;
   }
 .first-name{
+  margin-left: 300px;
   width: 500px;
   /* position: absolute;
   left: 25%;
@@ -9,6 +10,7 @@
   /* margin: -25px 0 0 25px; */
 }
 .last-name{
+  margin-left: 300px;
   margin-top: 10px;
   width: 500px;
   /* /* position: absolute;
@@ -16,7 +18,7 @@
   top: 25%; */
 }
 .email{
- 
+  margin-left: 300px;
   margin-top: 10px;
   width: 500px;
   /* position: absolute;
