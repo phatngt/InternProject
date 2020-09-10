@@ -1,0 +1,4 @@
+select * from checkbox
+insert into checkbox(id,label,state,page,location,value)
+values 	(1,'Permanent Employee','checkbox','insert','2',array['{"key":"true"}'::json]),
+		(2,'Gender','radio','insert','2',array['{"Male":"0"}'::json,'{"Female":"1"}'::json,'{"Another":"2"}'::json])

@@ -2,36 +2,29 @@
     margin-left: 8px;
   }
 .first-name{
-  margin-left: 300px;
-  width: 500px;
-  /* position: absolute;
-  left: 25%;
-  top: 25%; */
-  /* margin: -25px 0 0 25px; */
+  width: max-content;
 }
-.last-name{
-  margin-left: 300px;
+.last-name{ 
   margin-top: 10px;
-  width: 500px;
-  /* /* position: absolute;
-  left: 25%;
-  top: 25%; */
+  width: max-content;
+
 }
 .email{
-  margin-left: 300px;
+  
   margin-top: 10px;
-  width: 500px;
-  /* position: absolute;
-  left: 25%;
-  top: 25%; */
+  width: max-content;
 }
 .address{
-  margin-left: 300px;
+
   margin-top: 10px;
-  width: 500px;
+  width: max-content;
 }
 .phone{
-  margin-left: 300px;
+
   margin-top: 10px;
-  width: 500px;
+  width: max-content;
+}
+.birthday{
+  
+  margin-top: 10px;
 }

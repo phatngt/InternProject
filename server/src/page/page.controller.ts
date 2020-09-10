@@ -17,10 +17,15 @@ export class PageController {
       var response = new Response();
       try {
         let query = this.connection.createQueryRunner();
-        let queryStatement  = "select getdataofpage('"+keyword+"')";
-        let data = await query.query(queryStatement);
-        response.data = this.pageService.handleDataOfPage(data);
-        //response.data = data;
+        let components:Array<any> = await query.query("select c.type from component c where c.page = 'insert'");
+        var data:Array<any> = [];
+        for(let _index in components){
+          
+          let queryStatement = "select * from " + components[_index].type;
+          let data_temp:Array<any> = await query.query(queryStatement);
+          data.push(this.pageService.handleDataOfPage(components[_index].type,data_temp));
+        }
+        response.data = data;
        } catch (ex) {
         console.log("error: " + ex.message);
         response.error.push(ex.message);

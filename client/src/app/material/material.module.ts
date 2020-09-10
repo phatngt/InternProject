@@ -6,9 +6,16 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {MatGridListModule} from '@angular/material/grid-list'
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card'
+
 @NgModule({
   declarations: [],
+  providers:[
+    {provide:MAT_DATE_LOCALE,useValue:'en-GB'}
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -17,7 +24,10 @@ import {MatGridListModule} from '@angular/material/grid-list'
     MatRadioModule,
     MatSelectModule,
     ScrollingModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
   ],
   exports: [
     MatInputModule,
@@ -26,7 +36,10 @@ import {MatGridListModule} from '@angular/material/grid-list'
     MatRadioModule,
     MatSelectModule,
     ScrollingModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule
   ]
 })
 export class MaterialModule { }

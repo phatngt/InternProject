@@ -1,8 +1,9 @@
 
-import {TopbarComponent} from "../components/topbar/topbar.component"
-import {InputComponent} from "../components/input/input.component"
-import { ButtonComponent} from '../components/button/button.component'
-import {SelectComponent} from "../components/select/select.component"
+import {TopbarComponent} from "../components/topbar/topbar.component";
+import {InputComponent} from "../components/input/input.component";
+import { ButtonComponent} from '../components/button/button.component';
+import {SelectComponent} from "../components/select/select.component";
+import {CheckboxComponent} from "../components/checkbox/checkbox.component"
 import { Type } from '@angular/core';
 
 export class InfoComponent{
@@ -13,6 +14,7 @@ export class InfoComponent{
             case "input": return InputComponent;
             case "button": return ButtonComponent;
             case "selecttb": return SelectComponent;
+            case "checkbox": return CheckboxComponent;
             default: return null;
         }
     }

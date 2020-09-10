@@ -1,6 +1,14 @@
-<div>
+<div *ngIf = "data.state == 'text-field'">
     <mat-form-field appearance="fill" class="{{data.css}}">
         <mat-label >{{data.label}}</mat-label>
         <input matInput placeholder="{{data.placeholder}}" (change) = "onKey($event)">
     </mat-form-field>
 </div>
+<div *ngIf = "data.state == 'datepicker'">
+    <mat-form-field appearance="fill" class="{{data.css}}">
+        <mat-label >{{data.label}}</mat-label>
+        <input matInput [matDatepicker] = "picker" (dateChange) = "emitDatePickerEvent($event.value)">
+        <mat-datepicker-toggle matSuffix [for] ="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</div>  

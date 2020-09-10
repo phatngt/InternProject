@@ -14,7 +14,8 @@ import { RightDirective } from 'src/app/directive/insert-page/right.directive';
 export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
   //Virw child partion
   @ViewChild(AppDirective,{static:true}) 
-  leftPage:AppDirective;
+  leftPage: AppDirective;
+  //leftPage: QueryList<AppDirective>;
   @ViewChild(RightDirective,{static:true})
   rightPage:RightDirective;
   bool:boolean = false;
@@ -45,10 +46,11 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
     const component =  components.getComponents(name_component);
     var componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
     var viewContainerRef:ViewContainerRef;
-    if(data.location == '1'){
+    if(data.location.position == 'col-1'){
       viewContainerRef = this.leftPage.viewContainerRef;
+      
     }
-    if(data.location == '2'){
+    if(data.location.position == 'col-2'){
        viewContainerRef = this.rightPage.viewContainerRef;
     }
    
@@ -56,9 +58,9 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
 
     componentRef.instance.data = data;
     this.arrayComponent.push(componentRef);
-    console.log(this.arrayComponent);
     }
-  
+  count1:Array<any> = [];
+  count2:Array<any> = [];
   async renderInsertPage(){
     let data = (await this.pageService.getComponentOfPage("insert"));
     if(data.lenght != 0){
@@ -67,12 +69,14 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
           this.loadComponents(data[i].type,data[i].data);
         }
         for(let j = 0; j < data[i].data.length;j++){
-
+          if(data[i].data[j].location == '1'){ 
+            this.count1.push(data[i].type);
+          }
           this.loadComponents(data[i].type,data[i].data[j]);
         }
       }
-    }
-      //console.log(data[i].data.length);     
+      console.log(this.count1);
+    }  
   }
 
   collectData(){

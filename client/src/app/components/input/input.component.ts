@@ -22,12 +22,19 @@ export class InputComponent implements OnInit,OnChanges {
   onKey(event: any){
     let data:DataOfInsertPage = {};
     let label:Array<String> = this.data.label.split(' ');
-    console.log(label.length);
-    console.log(label);
     if(label.length > 1) data.label = label[0]+'_'+label[1];
     else data.label = this.data.label;
     data.value = event.target.value;
     this.transservice.transData(data);
+  }
+  emitDatePickerEvent(event:any){
+    let datePicker:DataOfInsertPage = {};
+    let label:Array<String> = this.data.label.split(' ');
+    if(label.length > 1) datePicker.label = label[0]+'_'+label[1];
+    else datePicker.label = this.data.label;
+    let dateFormat = event.getDate() + '-' + (event.getMonth() + 1) + '-' + event.getFullYear();
+    datePicker.value = dateFormat;
+    this.transservice.transData(datePicker);
   }
   
 }
