@@ -23,16 +23,30 @@ export class CheckboxComponent implements OnInit {
     this.listbtn = this.data.value;
   }
   emitCheckboxEvent(){
-    let dataCheckbox:ValueCheckbox[] = this.data.value;
-    let data:Data = {};
-    data.label = dataCheckbox[0].viewValue;
+    var data:Data = {};
+    let label:Array<any> = this.data.label.split(' ');
+    data.label = '';
+    if(label.length > 0){
+      for(let _index in label){
+        if(+_index !== (label.length-1) ){
+          data.label = label[_index] + '_';
+        }
+        else{
+          data.label += label[_index];
+        }
+      }
+    }
+    else{
+      data.label = this.data.label;
+    }
+    
     data.value = String(this.check);
     this.check = !this.check;
     this.transService.transData(data);
   }
   emitRadioBtnEvent(btnViewValue){
     let data:Data = {};
-    data.label = 'Gender';
+    data.label = this.data.label;
     data.value = btnViewValue;
     this.transService.transData(data);
   }

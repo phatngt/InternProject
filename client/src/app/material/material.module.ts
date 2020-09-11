@@ -9,7 +9,9 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import {MatCardModule} from '@angular/material/card'
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon'
 
 @NgModule({
   declarations: [],
@@ -28,6 +30,8 @@ import {MatCardModule} from '@angular/material/card'
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatTableModule,
+    MatIconModule
   ],
   exports: [
     MatInputModule,
@@ -39,7 +43,9 @@ import {MatCardModule} from '@angular/material/card'
     MatGridListModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatIconModule
   ]
 })
 export class MaterialModule { }

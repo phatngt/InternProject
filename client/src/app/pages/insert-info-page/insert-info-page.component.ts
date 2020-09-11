@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, OnChanges, ContentChildren, QueryList, Input, SimpleChanges, AfterViewInit, ViewContainerRef, ComponentRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit, ViewContainerRef, ComponentRef } from '@angular/core';
 import { AppDirective } from 'src/app/directive/insert-page/left.directive';
 import {InfoComponent} from 'src/app/infocomponents/infocomponents'
 import {TransdataService} from 'src/app/service/transdata.service'
@@ -11,7 +11,7 @@ import { RightDirective } from 'src/app/directive/insert-page/right.directive';
   templateUrl: './insert-info-page.component.html',
   styleUrls: ['./insert-info-page.component.css']
 })
-export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
+export class InsertInfoPageComponent implements OnInit,AfterViewInit {
   //Virw child partion
   @ViewChild(AppDirective,{static:true}) 
   leftPage: AppDirective;
@@ -28,8 +28,6 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
     private emitEventService: ClickEmitEventService,
     ) { }
 
-  ngOnChanges():void{
-  }
   ngOnInit(): void {
     
     this.recieveClickEvent();
@@ -37,9 +35,7 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
     
   }
   ngAfterViewInit(){
-    
     this.renderInsertPage();
-    
   }
   loadComponents(name_component:string,data:any){
     const components = new InfoComponent();
@@ -48,19 +44,14 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
     var viewContainerRef:ViewContainerRef;
     if(data.location.position == 'col-1'){
       viewContainerRef = this.leftPage.viewContainerRef;
-      
     }
     if(data.location.position == 'col-2'){
        viewContainerRef = this.rightPage.viewContainerRef;
     }
-   
     const componentRef  = viewContainerRef.createComponent(componentFactory);
-
     componentRef.instance.data = data;
     this.arrayComponent.push(componentRef);
     }
-  count1:Array<any> = [];
-  count2:Array<any> = [];
   async renderInsertPage(){
     let data = (await this.pageService.getComponentOfPage("insert"));
     if(data.lenght != 0){
@@ -70,12 +61,10 @@ export class InsertInfoPageComponent implements OnInit,OnChanges,AfterViewInit {
         }
         for(let j = 0; j < data[i].data.length;j++){
           if(data[i].data[j].location == '1'){ 
-            this.count1.push(data[i].type);
           }
           this.loadComponents(data[i].type,data[i].data[j]);
         }
       }
-      console.log(this.count1);
     }  
   }
 

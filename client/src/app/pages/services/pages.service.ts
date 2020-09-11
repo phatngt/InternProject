@@ -25,6 +25,20 @@ export class PagesService {
       return response["data"];
     }
   }
+  ///////////////////////
+  async getDataEmployee(name_page:string):Promise<any>{
+    let pageUrl = (await this.configService.getConfig()).employeeUrl +"/name?keyword=" + name_page;   
+    return this.http.get(pageUrl).toPromise();
+  } 
+  async getDataDetails(name_page:string){
+    let response = await this.getDataEmployee(name_page);
+    const flag_page = response["success"];
+    if(flag_page){
+      return response["data"];
+    }
+  }
+  //////////////////////////
+
 
   postInfoEmployee(data:Object):Observable<any>{
     //const employeUrl = this.configService.getConfig().employeeUrl;

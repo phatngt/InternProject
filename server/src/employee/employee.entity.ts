@@ -13,6 +13,14 @@ export class Employee{
     @Column()
     Address:string
     @Column()
-    Phone_number:string;    
+    Phone_number:string;
+    @Column()
+    Gender: string;
+    @Column()
+    Department:string;
+    @Column()
+    Permanent_employee:string;
+
+
 
 }

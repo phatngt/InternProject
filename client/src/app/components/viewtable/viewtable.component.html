@@ -1,0 +1,16 @@
+<table mat-table [dataSource] = "dataSource" class="mat-elevation-z8">
+    <ng-container [matColumnDef] = "column" *ngFor="let column of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef>{{column}}</th>
+        <td mat-cell *matCellDef="let element">
+            <mat-icon *ngIf = "(column == 'Permanent_employee')&&(element[column] == 'true');else elseBlock" aria-hidden="false" class ="done">done</mat-icon>
+            <ng-template #elseBlock>
+                <mat-icon *ngIf = "(column == 'Permanent_employee')&&(element[column] == 'false');else elseBlockNext" aria-hidden="false" class="clear">clear</mat-icon>
+                <ng-template #elseBlockNext>
+                    {{element[column]}}
+                </ng-template> 
+             </ng-template>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef ="let row; columns:columnsToDisplay;"></tr>
+</table>

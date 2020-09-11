@@ -16,6 +16,9 @@ import { ButtonComponent } from './components/button/button.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { SelectComponent } from './components/select/select.component';
 import { RightDirective } from './directive//insert-page/right.directive';
+import { ViewtableComponent } from './components/viewtable/viewtable.component';
+import { ViewInfoPageComponent } from './pages/view-info-page/view-info-page.component';
+import { ViewPageDirective } from './directive/view-page/view-page.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { RightDirective } from './directive//insert-page/right.directive';
     ButtonComponent,
     CheckboxComponent,
     SelectComponent,
-    RightDirective
+    RightDirective,
+    ViewtableComponent,
+    ViewInfoPageComponent,
+    ViewPageDirective
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,34 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 
 
 import { Emp } from './interface/employee.dto';
 import { EmployeeService } from './employee.service';
+import { Response } from 'src/response';
+import { Connection } from 'typeorm';
 
 @Controller('employee')
 export class EmployeeController {
     constructor(
-        private employeeService: EmployeeService
+        private employeeService: EmployeeService,
+        private connection: Connection
         ){}
+    
+    @Get('name')
+    async getData(@Query('keyword') keyword:string){
+        var response = new Response();
+        try {
+            let query = this.connection.createQueryRunner();
+            response.data = await query.query(`select * from ${keyword}`);
+        } catch (ex) {
+            console.log("error: " + ex.message);
+            response.error.push(ex.message);
+            response.success = false;
+        }
+        return response;
+    }
+
+
+
 
     @Post()
     async postInfo(@Body() info:Emp){

@@ -5,6 +5,7 @@ import { ButtonComponent} from '../components/button/button.component';
 import {SelectComponent} from "../components/select/select.component";
 import {CheckboxComponent} from "../components/checkbox/checkbox.component"
 import { Type } from '@angular/core';
+import { ViewtableComponent } from '../components/viewtable/viewtable.component';
 
 export class InfoComponent{
     constructor(){}
@@ -15,6 +16,7 @@ export class InfoComponent{
             case "button": return ButtonComponent;
             case "selecttb": return SelectComponent;
             case "checkbox": return CheckboxComponent;
+            case "viewtable": return ViewtableComponent;
             default: return null;
         }
     }
