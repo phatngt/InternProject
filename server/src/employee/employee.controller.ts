@@ -13,12 +13,12 @@ export class EmployeeController {
         private connection: Connection
         ){}
     
-    @Get('name')
-    async getData(@Query('keyword') keyword:string){
+    @Get()
+    async getData(){
         var response = new Response();
         try {
             let query = this.connection.createQueryRunner();
-            response.data = await query.query(`select * from ${keyword}`);
+            response.data = await query.query(`select * from employee`);
         } catch (ex) {
             console.log("error: " + ex.message);
             response.error.push(ex.message);

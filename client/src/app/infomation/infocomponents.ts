@@ -16,7 +16,7 @@ export class InfoComponent{
             case "button": return ButtonComponent;
             case "selecttb": return SelectComponent;
             case "checkbox": return CheckboxComponent;
-            case "viewtable": return ViewtableComponent;
+            case "tablet": return ViewtableComponent;
             default: return null;
         }
     }

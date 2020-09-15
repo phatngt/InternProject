@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit, ViewContainerRef, ComponentRef } from '@angular/core';
 import { AppDirective } from 'src/app/directive/insert-page/left.directive';
-import {InfoComponent} from 'src/app/infocomponents/infocomponents'
+import {InfoComponent} from 'src/app/infomation/infocomponents'
 import {TransdataService} from 'src/app/service/transdata.service'
 import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
 import {PagesService} from 'src/app/pages/services/pages.service'
@@ -60,8 +60,6 @@ export class InsertInfoPageComponent implements OnInit,AfterViewInit {
           this.loadComponents(data[i].type,data[i].data);
         }
         for(let j = 0; j < data[i].data.length;j++){
-          if(data[i].data[j].location == '1'){ 
-          }
           this.loadComponents(data[i].type,data[i].data[j]);
         }
       }

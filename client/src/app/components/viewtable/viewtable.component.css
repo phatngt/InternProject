@@ -1,5 +1,10 @@
 table {
-    width: 100%;
+    width: 70%;
+    margin-left: 10%;
+}
+.paginator{
+    width: 70%;
+    margin-left: 10%;
 }
 .done{
     color: lawngreen;

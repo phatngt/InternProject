@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { PagesService } from '../services/pages.service';
-import { InfoComponent } from 'src/app/infocomponents/infocomponents';
+import { InfoComponent } from 'src/app/infomation/infocomponents';
 import { ViewPageDirective } from 'src/app/directive/view-page/view-page.directive';
 
 @Component({
@@ -30,6 +30,16 @@ export class ViewInfoPageComponent implements OnInit {
     }
   async renderViewInfoPage(){
     let info = (await this.pageService.getDataDetails('employee'));
-    this.loadComponents('viewtable',info);
+    let data = (await this.pageService.getComponentOfPage("viewinfo"));
+    if(data.lenght != 0){
+      for(let i=0; i < data.length ; i++){
+        if(data[i].data.length === undefined){
+          this.loadComponents(data[i].type,data[i].data);
+        }
+        for(let j = 0; j < data[i].data.length;j++){
+          this.loadComponents(data[i].type,data[i].data[j]);
+        }
+      }
+    }  
   }
 }

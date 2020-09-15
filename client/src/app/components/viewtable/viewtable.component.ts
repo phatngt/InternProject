@@ -1,13 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+import { compilePipeFromMetadata } from '@angular/compiler';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import {ViewtableService} from './viewtable.service'
 
 export interface PeriodicElement {
   id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  address: string;
-  phone_num: string;
+  First_name: string;
+  Last_name: string;
+  Email: string;
+  Address: string;
+  Phone_number: string;
+  Gender:string;
+  Department:string;
+  Permanent_employee:string;
+
 }
 
 @Component({
@@ -17,23 +25,34 @@ export interface PeriodicElement {
 })
 export class ViewtableComponent implements OnInit {
   @Input() data:any;
-  constructor() { }
-  dataSource;
+  dataSource: MatTableDataSource<PeriodicElement>;
+  lengthDataSrc:number;
   displayedColumns:string[] = [];
   columnsToDisplay:Array<any> = []
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private viewTableService:ViewtableService) { 
+  }
+  
   ngOnInit(): void {
     this.renderTable();
   }
-
-  renderTable(){
-    let element_data:PeriodicElement[] = this.data;
-    let listColunms:Object = Object.keys(this.data[0]);
+  async renderTable(){
+    let element_data:PeriodicElement[] = await this.viewTableService.getDataDetails(this.data.state);
+    let listColunms:Object = Object.keys(element_data[0]);
     for(let i in listColunms){
       this.displayedColumns.push(listColunms[i]);
     }
+    this.displayedColumns.push(" ");
     this.columnsToDisplay = this.displayedColumns;
-    this.dataSource = element_data;
-    // console.log(this.dataSource);
+    this.dataSource = new MatTableDataSource(element_data);
+    this.lengthDataSrc = Object.keys(this.dataSource).length;
+    this.dataSource.paginator = this.paginator;
+    
+  }
+  clickIcon(){
+    
   }
 
   

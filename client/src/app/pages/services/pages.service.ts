@@ -27,7 +27,7 @@ export class PagesService {
   }
   ///////////////////////
   async getDataEmployee(name_page:string):Promise<any>{
-    let pageUrl = (await this.configService.getConfig()).employeeUrl +"/name?keyword=" + name_page;   
+    let pageUrl = (await this.configService.getConfig()).employeeUrl;   
     return this.http.get(pageUrl).toPromise();
   } 
   async getDataDetails(name_page:string){
