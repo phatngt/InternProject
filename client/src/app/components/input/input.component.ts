@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { TransdataService} from 'src/app/service/transdata.service';
 import {DataOfInsertPage} from 'src/app/interface/dataofinsertpage';
+import { ComponentservicesService } from '../service/componentservices.service';
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
@@ -12,6 +13,7 @@ export class InputComponent implements OnInit,OnChanges {
   //label = this.data.label;
   constructor(
     private transservice: TransdataService,
+    private componentServices: ComponentservicesService
     ) { }
 
   ngOnChanges():void{
@@ -21,17 +23,13 @@ export class InputComponent implements OnInit,OnChanges {
   }
   onKey(event: any){
     let data:DataOfInsertPage = {};
-    let label:Array<String> = this.data.label.split(' ');
-    if(label.length > 1) data.label = label[0]+'_'+label[1];
-    else data.label = this.data.label;
+    data.label = this.componentServices.handleLabel(this.data.label);
     data.value = event.target.value;
     this.transservice.transData(data);
   }
   emitDatePickerEvent(event:any){
     let datePicker:DataOfInsertPage = {};
-    let label:Array<String> = this.data.label.split(' ');
-    if(label.length > 1) datePicker.label = label[0]+'_'+label[1];
-    else datePicker.label = this.data.label;
+    datePicker.label = this.componentServices.handleLabel(this.data.label);
     let dateFormat = event.getDate() + '-' + (event.getMonth() + 1) + '-' + event.getFullYear();
     datePicker.value = dateFormat;
     this.transservice.transData(datePicker);

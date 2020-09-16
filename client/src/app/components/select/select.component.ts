@@ -24,7 +24,7 @@ export class SelectComponent implements OnInit {
     this.infoOption= this.data.option;
   }
   emitEvent(event){
-    console.log(typeof(event.value));
+
     let data:Data = {}
     data.label = this.data.label;
     data.value = event.value;

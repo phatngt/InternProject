@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TransdataService } from 'src/app/service/transdata.service';
+import {ComponentservicesService} from '../service/componentservices.service'
 interface ValueCheckbox{
   value:string;
   viewValue:string;
@@ -17,31 +18,28 @@ export class CheckboxComponent implements OnInit {
   @Input() data:any;
   check = true;
   listbtn: ValueCheckbox[] = [];
-  constructor(private transService:TransdataService) { }
+  constructor(
+    private transService:TransdataService,
+    private componentServices:ComponentservicesService) { }
 
   ngOnInit(): void {
     this.listbtn = this.data.value;
+    console.log(this.listbtn);
+    if(this.data.state == 'checkbox'){
+      this.initialDataCheckbox();
+    }
   }
   emitCheckboxEvent(){
     var data:Data = {};
-    let label:Array<any> = this.data.label.split(' ');
-    data.label = '';
-    if(label.length > 0){
-      for(let _index in label){
-        if(+_index !== (label.length-1) ){
-          data.label = label[_index] + '_';
-        }
-        else{
-          data.label += label[_index];
-        }
-      }
-    }
-    else{
-      data.label = this.data.label;
-    }
-    
+    data.label = this.componentServices.handleLabel(this.data.label);
     data.value = String(this.check);
     this.check = !this.check;
+    this.transService.transData(data);
+  }
+  initialDataCheckbox(){
+    let data:Data = {};
+    data.label = this.componentServices.handleLabel(this.data.label);
+    data.value = String(false);
     this.transService.transData(data);
   }
   emitRadioBtnEvent(btnViewValue){

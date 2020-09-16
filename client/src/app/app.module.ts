@@ -19,6 +19,10 @@ import { RightDirective } from './directive//insert-page/right.directive';
 import { ViewtableComponent } from './components/viewtable/viewtable.component';
 import { ViewInfoPageComponent } from './pages/view-info-page/view-info-page.component';
 import { ViewPageDirective } from './directive/view-page/view-page.directive';
+import { EditInfoPageComponent } from './pages/edit-info-page/edit-info-page.component';
+import { LeftDirective } from './directive/edit-info-page/left.directive';
+import { EditRightPageDirective } from './directive/edit-info-page/edit-right-page.directive';
+import { RootDirective } from './directive/app-page/root.directive';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { ViewPageDirective } from './directive/view-page/view-page.directive';
     RightDirective,
     ViewtableComponent,
     ViewInfoPageComponent,
-    ViewPageDirective
+    ViewPageDirective,
+    EditInfoPageComponent,
+    LeftDirective,
+    EditRightPageDirective,
+    RootDirective,
   ],
   imports: [
     BrowserModule,

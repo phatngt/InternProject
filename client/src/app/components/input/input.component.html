@@ -1,7 +1,7 @@
 <div *ngIf = "data.state == 'text-field'">
     <mat-form-field appearance="fill" class="{{data.css}}">
         <mat-label >{{data.label}}</mat-label>
-        <input matInput placeholder="{{data.placeholder}}" (change) = "onKey($event)">
+        <input matInput placeholder="{{data.placeholder}}" (change) = "onKey($event)" value={{data.valueinit}}>
     </mat-form-field>
 </div>
 <div *ngIf = "data.state == 'datepicker'">

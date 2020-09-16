@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit, ViewContainerRef, ComponentRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit, ViewContainerRef, ComponentRef, ComponentFactory } from '@angular/core';
 import { AppDirective } from 'src/app/directive/insert-page/left.directive';
 import {InfoComponent} from 'src/app/infomation/infocomponents'
 import {TransdataService} from 'src/app/service/transdata.service'
@@ -6,6 +6,8 @@ import {DataOfInsertPage} from "src/app/interface/dataofinsertpage"
 import {PagesService} from 'src/app/pages/services/pages.service'
 import { ClickEmitEventService } from 'src/app/service/click-emit-event.service';
 import { RightDirective } from 'src/app/directive/insert-page/right.directive';
+import { Emit } from 'src/app/app.component';
+import { TransdatatoappService } from 'src/app/service/transdatatoapp.service';
 @Component({
   selector: 'app-insert-info-page',
   templateUrl: './insert-info-page.component.html',
@@ -20,12 +22,13 @@ export class InsertInfoPageComponent implements OnInit,AfterViewInit {
   rightPage:RightDirective;
   bool:boolean = false;
   dataOfPage = [];
-  arrayComponent:ComponentRef<any>[] = [];
+  arrayComponent:ComponentFactory<any>[] = [];
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private transservice: TransdataService,
     private pageService: PagesService,
     private emitEventService: ClickEmitEventService,
+    private transDataToAnotherComponent: TransdatatoappService
     ) { }
 
   ngOnInit(): void {
@@ -50,7 +53,7 @@ export class InsertInfoPageComponent implements OnInit,AfterViewInit {
     }
     const componentRef  = viewContainerRef.createComponent(componentFactory);
     componentRef.instance.data = data;
-    this.arrayComponent.push(componentRef);
+    this.arrayComponent.push(componentFactory);
     }
   async renderInsertPage(){
     let data = (await this.pageService.getComponentOfPage("insert"));
@@ -85,6 +88,10 @@ export class InsertInfoPageComponent implements OnInit,AfterViewInit {
     this.emitEventService.clickEvent.subscribe(data=>{
       if(data == 'submit()'){
         this.postInfoEmployee();
+      }
+      let emit:Emit = data;
+      if(emit.action == "update()"){
+        this.transDataToAnotherComponent.transDataToApp(this.arrayComponent);
       }
     })
   }

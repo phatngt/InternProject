@@ -29,7 +29,6 @@ export class ViewInfoPageComponent implements OnInit {
     componentRef.instance.data = data;
     }
   async renderViewInfoPage(){
-    let info = (await this.pageService.getDataDetails('employee'));
     let data = (await this.pageService.getComponentOfPage("viewinfo"));
     if(data.lenght != 0){
       for(let i=0; i < data.length ; i++){

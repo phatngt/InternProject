@@ -3,6 +3,8 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/cor
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ClickEmitEventService } from 'src/app/service/click-emit-event.service';
+import { TransdatatoappService } from 'src/app/service/transdatatoapp.service';
 import {ViewtableService} from './viewtable.service'
 
 export interface PeriodicElement {
@@ -32,7 +34,10 @@ export class ViewtableComponent implements OnInit {
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private viewTableService:ViewtableService) { 
+  constructor(
+      private viewTableService:ViewtableService,
+      private transferDataToAppService: TransdatatoappService,
+      private clickEvenService:ClickEmitEventService) { 
   }
   
   ngOnInit(): void {
@@ -51,8 +56,15 @@ export class ViewtableComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     
   }
-  clickIcon(){
-    
+  updateInfo(_info:Object):void{
+    // this.clickEvenService.click("update()");
+    // this.transferDataToAppService.transDataToApp(_info);
+    let info = this.viewTableService.handleDataWhenClickEdit(_info);
+    let emit = {"key":"edit-info-page","action":"update()","value":info};
+    this.clickEvenService.click(emit)
+  }
+  deleteInfo(_info:Object):void{
+    console.log(_info);
   }
 
   

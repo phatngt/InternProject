@@ -10,10 +10,10 @@
                 </ng-template> 
              </ng-template>
              <span *ngIf = "column == ' '">
-                 <button mat-icon-button>
+                 <button mat-icon-button (click) = "updateInfo(element)">
                     <mat-icon>create</mat-icon>
                  </button>
-                 <button mat-icon-button>
+                 <button mat-icon-button (click) = "deleteInfo(element.id)">
                     <mat-icon class="clear">delete</mat-icon>
                  </button>
                 

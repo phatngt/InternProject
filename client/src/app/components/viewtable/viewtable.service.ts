@@ -2,7 +2,11 @@ import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { config } from 'rxjs';
 import { ConfigService } from 'src/app/configure/config.service';
-import {InforTable} from 'src/app/infomation/infotable'
+import {InforTable} from 'src/app/infomation/infotable';
+export interface InfoObject{
+  key?:string;
+  value?:string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +28,21 @@ export class ViewtableService {
     if(flag_page){
       return response["data"];
     }
+  }
+
+  handleDataWhenClickEdit(_info:Object){
+    let infoFinal:Array<any> = [];
+    let keys:Array<string> = Object.keys(_info);
+    let values:Array<any> = Object.values(_info);
+    let _index = 0;
+    keys.forEach(k=>{
+      let key ={};
+      let value = {};
+      key["label"] = k.replace('_',' ');
+      value["value"] = values[_index++]
+      infoFinal.push(Object.assign(key,value));
+    })
+    return infoFinal;
   }
 
 }
