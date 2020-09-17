@@ -2,6 +2,8 @@ import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, ViewChil
 import { PagesService } from '../services/pages.service';
 import { InfoComponent } from 'src/app/infomation/infocomponents';
 import { ViewPageDirective } from 'src/app/directive/view-page/view-page.directive';
+import { ClickEmitEventService } from 'src/app/service/click-emit-event.service';
+import { TranscontrolService} from "src/app/service/transcontrol.service"
 
 @Component({
   selector: 'app-view-info-page',
@@ -13,7 +15,9 @@ export class ViewInfoPageComponent implements OnInit {
   @ViewChild(ViewPageDirective,{static:true})
   viewPage:ViewPageDirective;
   constructor(private pageService: PagesService,
-    private componentFactoryResolver: ComponentFactoryResolver) { }
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private emitClickService: ClickEmitEventService,
+    private transControlService: TranscontrolService  ) { }
 
   ngOnInit(): void {
     this.renderViewInfoPage();
@@ -41,4 +45,6 @@ export class ViewInfoPageComponent implements OnInit {
       }
     }  
   }
+
+  
 }

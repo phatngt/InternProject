@@ -78,7 +78,7 @@ export class EditInfoPageComponent implements OnInit {
     return dataFinal;
     
   }
-  data_temp:Array<any> = [];
+  @Input() data_temp:Array<any> = [];
   recieveData(){
     this.clickEventService.clickEvent.subscribe(data =>{
       let emit_temp:Emit = data;
