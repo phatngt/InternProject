@@ -18,6 +18,8 @@ export class CheckboxComponent implements OnInit {
   @Input() data:any;
   check = true;
   listbtn: ValueCheckbox[] = [];
+  position;
+  checked:boolean;
   constructor(
     private transService:TransdataService,
     private componentServices:ComponentservicesService) { }
@@ -27,6 +29,10 @@ export class CheckboxComponent implements OnInit {
     console.log(this.listbtn);
     if(this.data.state == 'checkbox'){
       this.initialDataCheckbox();
+      this.checked = (this.data.valueinit == "true");
+    }
+    if(this.data.state == 'radio'){
+      this.position = this.data.valueinit;
     }
   }
   emitCheckboxEvent(){

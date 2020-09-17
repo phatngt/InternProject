@@ -1,7 +1,7 @@
 <div>
   <mat-form-field appearance="fill">
       <mat-label>{{data.label}}</mat-label>
-      <mat-select (selectionChange) ="emitEvent($event)">
+      <mat-select [formControl]="selected" (selectionChange) ="emitEvent($event)">
         <mat-option *ngFor = "let op of infoOption" [value]="op.value">
             {{op.viewValue}}
         </mat-option>

@@ -5,11 +5,13 @@ import { PagesService } from '../services/pages.service';
 import { ClickEmitEventService } from 'src/app/service/click-emit-event.service';
 import { EditRightPageDirective } from 'src/app/directive/edit-info-page/edit-right-page.directive';
 
+
 export interface Emit{
   key?:string;
   value?:any;
   action?:string;
 }
+
 
 @Component({
   selector: 'app-edit-info-page',
@@ -22,7 +24,6 @@ export class EditInfoPageComponent implements OnInit {
   rightPage:EditRightPageDirective;
   @ViewChild(LeftDirective,{static:true})
   leftPage:LeftDirective;
-  @Input() data;
     
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -57,28 +58,34 @@ export class EditInfoPageComponent implements OnInit {
     if(data.lenght != 0){
       for(let i=0; i < data.length ; i++){
         if(data[i].data.length === undefined){
-          console.log(data[i].data.label);
-          this.loadComponents(data[i].type,data[i].data);
+          let dataComp = this.mergeData(this.data_temp,data[i].data);
+          this.loadComponents(data[i].type,dataComp);
         }
         for(let j = 0; j < data[i].data.length;j++){
-          let index = this.data_temp.findIndex(p=>p.label === data[i].data[j].label);
-          if(index != -1){
-            data[i].data[j].valueinit = this.data_temp[index].value;
-          }
-          console.log(index);
-          this.loadComponents(data[i].type,data[i].data[j]);
+          let dataComp = this.mergeData(this.data_temp,data[i].data[j]);
+          this.loadComponents(data[i].type,dataComp);
         }
       }
     }  
   }
 
+  mergeData(data_temp,data){
+    let dataFinal = data;
+    let index = data_temp.findIndex(p=>p.label === dataFinal.label);
+    if(index != -1){
+      dataFinal.valueinit = this.data_temp[index].value;
+    }
+    return dataFinal;
+    
+  }
   data_temp:Array<any> = [];
   recieveData(){
     this.clickEventService.clickEvent.subscribe(data =>{
       let emit_temp:Emit = data;
-      this.data_temp = emit_temp.value;
-      console.log(this.data_temp);
-      this.renderInsertPage();
+      if(emit_temp.action == "update()"){
+        this.data_temp = emit_temp.value;
+        this.renderInsertPage();
+      }
     })
   }
  

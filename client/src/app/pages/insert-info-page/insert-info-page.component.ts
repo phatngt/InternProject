@@ -91,7 +91,7 @@ export class InsertInfoPageComponent implements OnInit,AfterViewInit {
       }
       let emit:Emit = data;
       if(emit.action == "update()"){
-        this.transDataToAnotherComponent.transDataToApp(this.arrayComponent);
+        
       }
     })
   }
@@ -110,7 +110,6 @@ export class InsertInfoPageComponent implements OnInit,AfterViewInit {
   check;
   postInfoEmployee(){
     let info = this.handleInfoEmp();
-    console.log(info);
     this.pageService.postInfoEmployee(info).subscribe(data=>{this.check = data});
   }
 

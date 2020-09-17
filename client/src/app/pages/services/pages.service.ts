@@ -56,5 +56,9 @@ export class PagesService {
     }
     return throwError('Something bad happened; please try again later.');
   }
-  
+  ////////////////////////////////////////////////
+  async updateInfoEmployee(data:any){
+    let pageUrl = (await this.configService.getConfig()).employeeUrl; 
+    return this.http.put(pageUrl,data).pipe(catchError(this.handleError));
+  }
 }

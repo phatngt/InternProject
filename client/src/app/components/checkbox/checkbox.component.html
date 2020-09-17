@@ -1,13 +1,15 @@
 <div>
-    <mat-checkbox *ngIf = "data.state == 'checkbox'"
-            (change) = "emitCheckboxEvent()" >{{data.label}}
+    <mat-checkbox   *ngIf = "data.state == 'checkbox'"
+                    (change) = "emitCheckboxEvent()"
+                    [(ngModel)] = "checked">
+                    {{data.label}}
     </mat-checkbox>
 </div>
 <div>
     <section *ngIf = "data.state == 'radio'">
         <label class="" >{{data.label}}</label>
         <br>
-        <mat-radio-group >
+        <mat-radio-group [(ngModel)]="position">
             <mat-radio-button class="radio-btn" *ngFor="let btn of listbtn" value="{{btn.value}}" (change) = "emitRadioBtnEvent(btn.viewValue)">{{btn.viewValue}}</mat-radio-button>
         </mat-radio-group>
     </section>

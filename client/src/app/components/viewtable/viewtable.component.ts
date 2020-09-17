@@ -59,6 +59,7 @@ export class ViewtableComponent implements OnInit {
   updateInfo(_info:Object):void{
     // this.clickEvenService.click("update()");
     // this.transferDataToAppService.transDataToApp(_info);
+  
     let info = this.viewTableService.handleDataWhenClickEdit(_info);
     let emit = {"key":"edit-info-page","action":"update()","value":info};
     this.clickEvenService.click(emit)

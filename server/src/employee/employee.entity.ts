@@ -9,6 +9,8 @@ export class Employee{
     @Column()
     Last_name:string
     @Column()
+    Birthday:string;
+    @Column()
     Email:string
     @Column()
     Address:string
